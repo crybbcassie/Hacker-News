@@ -8,7 +8,6 @@ export default function MainPage() {
   const articles = useSelector((state) => state.articles.articles);
   return (
     <>
-      <p> main</p>
       <NewsCard />
       <button onClick={() => dispatch(fetchArticles())}>click</button>
       {articles}
