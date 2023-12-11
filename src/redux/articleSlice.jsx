@@ -3,21 +3,19 @@ import axios from "axios";
 
 export const fetchArticles = createAsyncThunk(
   "articles/fetchArticles",
-  async function (_, { rejectWithValue }) {
+  async function () {
     try {
-      const HN_HOST = "https://hacker-news.firebaseio.com/v0/item/";
-      let result = await axios.get(`${HN_HOST}topstories.json`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(result)
-      return result
+      let response = await axios.get(
+        "https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty"
+      );
+        console.log('response:', response);
+        return response;
     } catch (e) {
-      return rejectWithValue(e.message);
+      console.log('error')
     }
   }
 );
+
 
 const articleSlice = createSlice({
   name: "articles",
@@ -26,7 +24,7 @@ const articleSlice = createSlice({
     status: null,
     error: null,
   },
-  reducers: {},
+  reducers: {}
 });
 
 export const {} = articleSlice.actions;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card } from 'antd';
 import cl from './Components.module.css';
 
 export default function NewsCard(){
