@@ -23,31 +23,27 @@ export const fetchArticles = createAsyncThunk(
   }
 );
 
-export const fetchArticleById = createAsyncThunk(
-  async function (id) {
-    try {
-      let articleById = await axios.get(
-        `https://hacker-news.firebaseio.com/v0/item/${id}.json`
-      );
-      return articleById;
-    } catch (e) {
+export async function fetchArticleById(id) {
+  try{
+      const response = await axios.get( `https://hacker-news.firebaseio.com/v0/item/${id}.json`);
+      const article = await response
+      return article.data
+  }catch(e){
       console.error('Failed to fetch article:', e);
-    }
   }
-);
+}
 
-export const fetchCommentsForArticle = createAsyncThunk(
-  async function (id) {
-    try {
-      let comments = await axios.get(
-        `https://hacker-news.firebaseio.com/v0/item/${id}.json`
-      );
-      return comments
-    } catch (e) {
-      console.error('Failed to fetch comments:', e);
-    }
+export async function fetchCommentsForArticle(id) {
+  try {
+    const response = await axios.get(
+      `https://hacker-news.firebaseio.com/v0/item/${id}.json`
+    );
+    const comments = await response;
+    return comments.data;
+  } catch (e) {
+    console.error("Failed to fetch comments:", e);
   }
-);
+}
 
 const articleSlice = createSlice({
   name: "articles",
