@@ -1,14 +1,17 @@
 import React from 'react';
 import cl from "./style/Components.module.css";
+import {changeDateView} from '../helpers/helpers'
 
-export default function NewsCard(){
-return (
-  <div className={cl.card}>
+export default function NewsCard({data}){
+  return (
+    <div className={cl.card}>
       <div className={cl.card__content}>
-        <h2>Title Title Title</h2>
-        <p><span>360</span> points by <span>jay_kyburz</span> 3 hours ago | <span>197</span> comments</p>
+        <h2>{data.title}</h2>
+        <p>
+          <span>{data.score}</span> points by <span>{data.by}</span> {changeDateView(data.time)} |<span> {data.kids.length}</span> comments
+        </p>
       </div>
-  </div>
-);
+    </div>
+  );
 }
 
