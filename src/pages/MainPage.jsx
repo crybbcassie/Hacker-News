@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import {fetchArticles} from '../redux/articleSlice'
 import { Button } from "antd";
 import cl from './style/Pages.module.css'
-import { ReloadOutlined, ArrowDownOutlined } from "@ant-design/icons";
+import { ReloadOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { Pagination } from "antd";
 
 export default function MainPage() {
   const dispatch = useDispatch();
   const articles = useSelector((state) => state.articles.articles);
-  console.log("articles", articles); //[{…}, {…}, {…}, ...]
+  console.log("articles", articles); 
 
   useEffect(() => {
     dispatch(fetchArticles());
@@ -18,6 +19,7 @@ export default function MainPage() {
 
   return (
     <>
+      {articles ? <>
       <div className={cl.main__btn}>
         <Button
           className={cl.main__btn_update}
@@ -27,19 +29,20 @@ export default function MainPage() {
           Update news
         </Button>
       </div>
-          {articles.map((item) => (
-            <div key={item.id}>
-              <Link to={`/Hacker_News/${item.id}`}>
-                <NewsCard data={item} />
-              </Link>
-            </div>
-          ))}
+      {articles.map((item) => (
+        <div key={item.id}>
+          <Link to={`/Hacker_News/${item.id}`}>
+            <NewsCard data={item} />
+          </Link>
+        </div>
+      ))}
       <div className={cl.main__btn}>
-        <Button className={cl.main__btn_more}>
-          <ArrowDownOutlined />
-          more
-        </Button>
-      </div>
+        <div className={cl.main__btn_more}>
+          <Pagination defaultCurrent={1} total={500} />
+        </div>
+      </div></> 
+      : 
+      <>Loading...</>}
     </>
   );
 }
