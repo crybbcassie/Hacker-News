@@ -8,7 +8,9 @@ export default function NewsCard({data}){
       <div className={cl.card__content}>
         <h2>{data.title}</h2>
         <p>
-          <span>{data.score}</span> points by <span>{data.by}</span> {changeDateView(data.time)} |<span> {data.kids.length}</span> comments
+          <span>{data.score}</span> points by <span>{data.by}</span>{" "}
+          {data && changeDateView(data.time)} |
+          <span> {data &&  data.kids.length}</span> comments
         </p>
       </div>
     </div>
